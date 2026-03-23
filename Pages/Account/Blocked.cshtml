@@ -1,0 +1,21 @@
+@page
+@model UserManagementApp.Pages.Account.BlockedModel
+@{
+    ViewData["Title"] = "Cuenta bloqueada";
+}
+
+<div class="auth-wrapper">
+    <div class="auth-card text-center">
+        <div class="status-icon">🔒</div>
+        <h1 class="auth-title">Cuenta bloqueada</h1>
+        <p class="auth-subtitle">
+            Has superado el número máximo de intentos permitidos.
+        </p>
+
+        <div class="alert alert-danger">
+            Se ha bloqueado temporalmente tu acceso y se notificó al correo registrado.
+        </div>
+
+        <a asp-page="/Account/Login" class="btn btn-primary auth-btn">Volver al login</a>
+    </div>
+</div>
