@@ -17,75 +17,65 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
 
     <style>
-                    body {
-                        background: #f5f6f8;
-                        margin: 0;
-                    }
-
-                    .top-bar {
-                        background-color: #b51217;
-                        height: 60px;
-                    }
-
-                    .login-container {
-                        min-height: calc(100vh - 110px);
-                    }
-
-                    .login-card {
-                        width: 100%;
-                        max-width: 360px;
-                        border-radius: 10px;
-                        padding: 25px;
-                    }
-
-                    .toggle-doc {
-                        display: flex;
-                        border: 1px solid #ced4da;
-                        border-radius: 6px;
-                        overflow: hidden;
-                        margin-bottom: 1rem;
-                    }
-
-                    .toggle-doc button {
-                        flex: 1;
-                        border: none;
-                        padding: 8px;
-                        background: #e9ecef;
-                        transition: 0.2s ease;
-                    }
-
-                    .toggle-doc button.active {
-                        background: #6c757d;
-                        color: white;
-                    }
-
-                    .login-btn {
-                        background-color: #0d5cab;
-                        color: white;
-                        border: none;
-                    }
-
-                    .login-btn:hover {
-                        background-color: #6c91b8;
-                        color: white;
-                    }
-
-                    .support {
-                        font-size: 0.85rem;
-                    }
-
-                    .footer-note {
-                        font-size: 0.8rem;
-                        color: #666;
-                    }
-
-                    .doc-hidden {
-                        display: none;
-                    }
-
-                    .field-validation-error {
-                        font-size: 0.875rem;
-                    }
+        body {
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('/images/mountain-bg.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            margin: 0;
+            min-height: 100vh;
+        }
+        .top-bar {
+            background-color: #b51217;
+            height: 60px;
+        }
+        .login-container {
+            min-height: calc(100vh - 110px);
+        }
+        .login-card {
+            width: 100%;
+            max-width: 360px;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+        }
+        .toggle-doc {
+            display: flex;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+        .toggle-doc button {
+            flex: 1;
+            border: none;
+            padding: 8px;
+            background: #e9ecef;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+        .toggle-doc button.active {
+            background: #6c757d;
+            color: white;
+        }
+        .login-btn {
+            background-color: #0d5cab;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .login-btn:hover {
+            background-color: #0b4f95;
+        }
+        .support {
+            font-size: 0.85rem;
+        }
+        .footer-note {
+            font-size: 0.8rem;
+            color: #fff;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
     </style>
 </head>
 

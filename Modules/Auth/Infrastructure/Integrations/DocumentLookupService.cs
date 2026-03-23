@@ -10,16 +10,13 @@ public class DocumentLookupService : IDocumentLookupService
 {
     private readonly HttpClient _httpClient;
     private readonly DocumentApiOptions _options;
-    private readonly ILogger<DocumentLookupService> _logger;
 
     public DocumentLookupService(
         HttpClient httpClient,
-        IOptions<DocumentApiOptions> options,
-        ILogger<DocumentLookupService> logger)
+        IOptions<DocumentApiOptions> options)
     {
         _httpClient = httpClient;
         _options = options.Value;
-        _logger = logger;
     }
 
     public async Task<DocumentLookupResult?> GetPersonAsync(string documentType, string documentNumber)
@@ -27,59 +24,23 @@ public class DocumentLookupService : IDocumentLookupService
         try
         {
             if (string.IsNullOrWhiteSpace(_options.BaseUrl2) || string.IsNullOrWhiteSpace(_options.Token2))
-            {
-                _logger.LogWarning("La configuración de la API documental está incompleta.");
                 return null;
-            }
 
             if (!string.Equals(documentType, "DNI", StringComparison.OrdinalIgnoreCase))
-            {
-                _logger.LogWarning(
-                    "Actualmente la integración documental solo está implementada para DNI. Tipo recibido: {DocumentType}",
-                    documentType
-                );
-
                 return null;
-            }
 
             var url =
                 $"{_options.BaseUrl2}?document={Uri.EscapeDataString(documentNumber)}&key={Uri.EscapeDataString(_options.Token2)}";
 
-            _logger.LogInformation(url);
-
             var response = await _httpClient.GetAsync(url);
 
             if (!response.IsSuccessStatusCode)
-            {
-                _logger.LogWarning(
-                    "La consulta documental falló. StatusCode: {StatusCode}, Documento: {DocumentType}-{DocumentNumber}",
-                    response.StatusCode,
-                    documentType,
-                    documentNumber
-                );
-
                 return null;
-            }
 
             var apiResponse = await response.Content.ReadFromJsonAsync<DocumentApiResponse>();
 
-            if (apiResponse is null)
-            {
-                _logger.LogWarning("La API documental devolvió una respuesta vacía.");
+            if (apiResponse is null || !apiResponse.Estado || apiResponse.Resultado is null)
                 return null;
-            }
-
-            if (!apiResponse.Estado || apiResponse.Resultado is null)
-            {
-                _logger.LogWarning(
-                    "La API documental devolvió estado inválido para {DocumentType}-{DocumentNumber}. Mensaje: {Mensaje}",
-                    documentType,
-                    documentNumber,
-                    apiResponse.Mensaje
-                );
-
-                return null;
-            }
 
             var fullLastName = string.Join(" ",
                 new[]
@@ -102,15 +63,8 @@ public class DocumentLookupService : IDocumentLookupService
                 BirthDate = apiResponse.Resultado.FechaNacimiento ?? string.Empty
             };
         }
-        catch (Exception ex)
+        catch
         {
-            _logger.LogError(
-                ex,
-                "Error consultando API documental para {DocumentType}-{DocumentNumber}",
-                documentType,
-                documentNumber
-            );
-
             return null;
         }
     }
