@@ -1,0 +1,212 @@
+@page
+@model UserManagementApp.Pages.Account.LoginModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"]</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+
+    <style>
+        * { margin: 0; padding: 0; }
+        html, body { width: 100%; height: 100%; }
+        body { background-color: #f5f5f5; position: relative; }
+        
+        .bg-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('/images/machu_picchu_bg.webp');
+            background-size: 1200px auto;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            opacity: 0.9;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .bg-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15));
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .content-wrapper {
+            position: relative; z-index: 2; min-height: 100vh; display: flex; flex-direction: column;
+        }
+        
+        .top-bar {
+            background-color: #b51217; height: 60px; flex-shrink: 0;
+        }
+        
+        .login-container {
+            flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px;
+        }
+        
+        .login-card {
+            width: 100%; max-width: 360px; border-radius: 10px; padding: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25); background: #fff;
+        }
+        
+        .toggle-doc {
+            display: flex; border: 1px solid #ced4da; border-radius: 6px; overflow: hidden; margin-bottom: 1rem;
+        }
+        
+        .toggle-doc button {
+            flex: 1; border: none; padding: 8px; background: #e9ecef; cursor: pointer; transition: 0.2s ease;
+        }
+        
+        .toggle-doc button.active {
+            background: #6c757d; color: white;
+        }
+        
+        .login-btn {
+            background-color: #0d5cab; color: white; border: none; cursor: pointer;
+        }
+        
+        .login-btn:hover {
+            background-color: #0b4f95;
+        }
+        
+        .support { font-size: 0.85rem; }
+        
+        .footer-note {
+            font-size: 0.8rem; color: #fff; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+            background-color: #b51217; padding: 15px 20px; text-align: right; flex-shrink: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-container"></div>
+    <div class="bg-overlay"></div>
+    
+    <div class="content-wrapper">
+        <div class="top-bar d-flex justify-content-end align-items-center px-3">
+            <span class="text-white fs-4">?</span>
+        </div>
+
+        <div class="login-container">
+            <div class="login-card">
+
+                @if (!string.IsNullOrWhiteSpace(Model.StatusMessage))
+                {
+                    <div class="alert alert-warning" role="alert">
+                        @Model.StatusMessage
+                    </div>
+                }
+
+                <form method="post">
+                    <input asp-for="Input.DocumentType" type="hidden" id="documentTypeInput" />
+
+                    <div class="toggle-doc">
+                        <button type="button" id="btnDni" class="active" onclick="setDocumentType('DNI')">
+                            DNI
+                        </button>
+                        <button type="button" id="btnCe" onclick="setDocumentType('CE')">
+                            CE
+                        </button>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Input.DocumentNumber" class="form-label">Usuario</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-person"></i></span>
+                            <input asp-for="Input.DocumentNumber" type="text" class="form-control" placeholder="Ingresar usuario" />
+                        </div>
+                        <span asp-validation-for="Input.DocumentNumber" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-2">
+                        <label asp-for="Input.Password" class="form-label">Contraseña</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                            <input asp-for="Input.Password" type="password" class="form-control" id="passwordInput" placeholder="Ingresar contraseña" />
+                            <button type="button" class="input-group-text" onclick="togglePassword()">
+                                <i class="bi bi-eye" id="eyeIcon"></i>
+                            </button>
+                        </div>
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <a href="#" class="small text-decoration-none">¿Olvidó su contraseña?</a>
+                    </div>
+
+                    <div class="d-grid mb-3">
+                        <button type="submit" class="btn login-btn">Ingresar</button>
+                    </div>
+
+                    <div class="d-grid mb-4">
+                        <a asp-page="/Account/Activate" class="btn btn-outline-secondary">
+                            Activar cuenta
+                        </a>
+                    </div>
+                </form>
+
+                <div class="text-center support">
+                    <i class="bi bi-headset"></i>
+                    ¿Necesita ayuda?, <a href="#">contacte con el área de soporte</a>.
+                </div>
+
+            </div>
+        </div>
+        
+        <div class="footer-note">
+            <small>PERÚ - Centro Nacional de Planeamiento Estratégico</small>
+        </div>
+    </div>
+
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        function setDocumentType(type) {
+            document.getElementById("documentTypeInput").value = type;
+
+            const btnDni = document.getElementById("btnDni");
+            const btnCe = document.getElementById("btnCe");
+
+            btnDni.classList.remove("active");
+            btnCe.classList.remove("active");
+
+            if (type === "DNI") {
+                btnDni.classList.add("active");
+            } else {
+                btnCe.classList.add("active");
+            }
+        }
+
+        function togglePassword() {
+            const passwordInput = document.getElementById("passwordInput");
+            const eyeIcon = document.getElementById("eyeIcon");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon.classList.remove("bi-eye");
+                eyeIcon.classList.add("bi-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.classList.remove("bi-eye-slash");
+                eyeIcon.classList.add("bi-eye");
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const currentType = document.getElementById("documentTypeInput").value || "DNI";
+            setDocumentType(currentType);
+        });
+    </script>
+</body>
+
+</html>

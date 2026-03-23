@@ -34,6 +34,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWNjb3VudC9Mb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[/home/ryu/Workspace/UserManagementApp/Pages/Account/Login_clean.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWNjb3VudC9Mb2dpbl9jbGVhbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/ryu/Workspace/UserManagementApp/Pages/Account/Login_new.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWNjb3VudC9Mb2dpbl9uZXcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/home/ryu/Workspace/UserManagementApp/Pages/Account/Logout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWNjb3VudC9Mb2dvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

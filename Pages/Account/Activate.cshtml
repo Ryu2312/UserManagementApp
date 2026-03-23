@@ -18,53 +18,46 @@
     <link href="/css/site.css" rel="stylesheet" />
 </head>
 
-<body class="activate-page">
-    <div class="top-bar d-flex justify-content-end align-items-center px-3">
-        <span class="text-white fs-4 fw-bold">?</span>
-    </div>
+<body>
+    <div class="bg-container"></div>
+    <div class="bg-overlay"></div>
+    
+    <div class="content-wrapper">
+        <div class="top-bar d-flex justify-content-end align-items-center px-3">
+            <span class="text-white fs-4">?</span>
+        </div>
 
-    <div class="activation-container">
-        <div class="activation-inner">
+        <div class="login-container">
 
             @if (Model.IsSuccess)
             {
-                <div class="confirm-card">
-                    <div class="confirm-icon">
-                        <i class="bi bi-rocket-takeoff"></i>
-                    </div>
+                <div class="login-card">
+                    <div style="text-align: center;">
+                        <div class="confirm-icon">
+                            <i class="bi bi-rocket-takeoff"></i>
+                        </div>
 
-                    <div class="confirm-title">
-                        ¡Bienvenido(a), @(string.IsNullOrWhiteSpace(Model.ActivatedUserName) ? "usuario" : Model.ActivatedUserName)!
-                    </div>
+                        <div class="confirm-title">
+                            ¡Bienvenido(a), @(string.IsNullOrWhiteSpace(Model.ActivatedUserName) ? "usuario" : Model.ActivatedUserName)!
+                        </div>
 
-                    <div class="confirm-message">
-                        Su cuenta en el aplicativo X está activada.
-                    </div>
+                        <div class="confirm-message">
+                            Su cuenta en el aplicativo X está activada.
+                        </div>
 
-                    <div class="confirm-message">
-                        Ya puede iniciar sesión.
-                    </div>
+                        <div class="confirm-message">
+                            Ya puede iniciar sesión.
+                        </div>
 
-                    <a asp-page="/Account/Login" class="btn confirm-btn">
-                        Iniciar sesión
-                    </a>
+                        <a asp-page="/Account/Login" class="btn login-btn" style="margin-top: 24px; width: 100%;">
+                            Iniciar sesión
+                        </a>
+                    </div>
                 </div>
             }
             else
             {
-                <div class="auth-card">
-
-                    <div class="brand-section">
-                        <h1 class="auth-title">Activación de cuenta</h1>
-                        <p class="auth-subtitle">Complete sus datos para habilitar el acceso</p>
-                    </div>
-
-                    @if (!string.IsNullOrWhiteSpace(Model.StatusMessage))
-                    {
-                        <div class="alert alert-danger" role="alert">
-                            @Model.StatusMessage
-                        </div>
-                    }
+                <div class="login-card">
 
                     <form method="post">
                         <input asp-for="Input.DocumentType" type="hidden" id="documentTypeInput" />
@@ -80,19 +73,28 @@
 
                         <div class="mb-3">
                             <label asp-for="Input.DocumentNumber" class="form-label">Número de documento</label>
-                            <input asp-for="Input.DocumentNumber" class="form-control" placeholder="Ingrese su número de documento" />
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                <input asp-for="Input.DocumentNumber" type="text" class="form-control" placeholder="Ingrese su número de documento" />
+                            </div>
                             <span asp-validation-for="Input.DocumentNumber" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
                             <label asp-for="Input.Email" class="form-label">Correo</label>
-                            <input asp-for="Input.Email" class="form-control" placeholder="Ingrese su correo" />
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                <input asp-for="Input.Email" type="email" class="form-control" placeholder="Ingrese su correo" />
+                            </div>
                             <span asp-validation-for="Input.Email" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
                             <label asp-for="Input.PhoneNumber" class="form-label">Celular</label>
-                            <input asp-for="Input.PhoneNumber" class="form-control" placeholder="Ingrese su celular" />
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                                <input asp-for="Input.PhoneNumber" type="text" class="form-control" placeholder="Ingrese su celular" />
+                            </div>
                             <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
                         </div>
 
@@ -109,7 +111,7 @@
                             <span asp-validation-for="Input.Password" class="text-danger"></span>
                         </div>
 
-                        <div class="mb-4">
+                        <div class="mb-3">
                             <label asp-for="Input.ConfirmPassword" class="form-label">Confirmar contraseña</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-lock"></i></span>
@@ -122,34 +124,41 @@
                             <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                         </div>
 
+                        @if (!string.IsNullOrWhiteSpace(Model.StatusMessage))
+                        {
+                            <div class="alert alert-warning" role="alert">
+                                @Model.StatusMessage
+                            </div>
+                        }
+
                         <div class="d-grid mb-3">
-                            <button type="submit" class="btn primary-btn">Activar cuenta</button>
+                            <button type="submit" class="btn login-btn">Activar cuenta</button>
                         </div>
 
-                        <div class="d-grid">
+                        <div class="d-grid mb-4">
                             <a asp-page="/Account/Login" class="btn btn-outline-secondary">
                                 Volver al login
                             </a>
                         </div>
                     </form>
 
-                    <div class="help-section mt-4">
+                    <div class="text-center support">
                         <i class="bi bi-headset"></i>
                         ¿Necesita ayuda?, <a href="#">contacte con el área de soporte</a>.
                     </div>
+
                 </div>
             }
 
         </div>
-    </div>
 
-    <div class="bottom-bar">
-        <div class="footer-note">PERÚ - Centro Nacional de Planeamiento Estratégico</div>
-    </div>
+        <div class="text-end p-3 footer-note">
+            <small>PERÚ - Centro Nacional de Planeamiento Estratégico</small>
+        </div>
 
-    <partial name="_ValidationScriptsPartial" />
+        <partial name="_ValidationScriptsPartial" />
 
-    <script>
+        <script>
             function setDocumentType(type) {
                 document.getElementById("documentTypeInput").value = type;
 
@@ -182,12 +191,13 @@
             }
 
             document.addEventListener("DOMContentLoaded", function () {
-                const currentType = document.getElementById("documentTypeInput")?.value || "DNI";
-                if (document.getElementById("documentTypeInput")) {
+                const documentTypeInput = document.getElementById("documentTypeInput");
+                if (documentTypeInput) {
+                    const currentType = documentTypeInput.value || "DNI";
                     setDocumentType(currentType);
                 }
             });
-    </script>
-</body>
+        </script>
+    </body>
 
 </html>

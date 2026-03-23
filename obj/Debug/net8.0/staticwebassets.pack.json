@@ -9,6 +9,14 @@
       "PackagePath": "staticwebassets/favicon.ico"
     },
     {
+      "Id": "/home/ryu/Workspace/UserManagementApp/wwwroot/images/.gitkeep",
+      "PackagePath": "staticwebassets/images/.gitkeep"
+    },
+    {
+      "Id": "/home/ryu/Workspace/UserManagementApp/wwwroot/images/machu_picchu_bg.webp",
+      "PackagePath": "staticwebassets/images/machu_picchu_bg.webp"
+    },
+    {
       "Id": "/home/ryu/Workspace/UserManagementApp/wwwroot/js/site.js",
       "PackagePath": "staticwebassets/js/site.js"
     },
