@@ -5,15 +5,13 @@ namespace UserManagementApp.Pages;
 
 public class IndexModel : PageModel
 {
-    private readonly ILogger<IndexModel> _logger;
-
-    public IndexModel(ILogger<IndexModel> logger)
+    public IActionResult OnGet()
     {
-        _logger = logger;
-    }
+        if (User.Identity?.IsAuthenticated == true)
+        {
+            return RedirectToPage("/Users/Profile");
+        }
 
-    public void OnGet()
-    {
-
+        return RedirectToPage("/Account/Login");
     }
 }
